@@ -39,7 +39,7 @@ function init() {
     $stepDescription.text("Forneça seus dados para te conhecermos melhor!")
     $stepTwo.hide()
     $stepThree.hide()
-    
+
     function validarinput(elemento, textLength, regex) {
         const closest =  $(elemento).closest(".input-data")
         //verifica se tem regex ou não
@@ -179,12 +179,65 @@ function init() {
                     $title.text("Inscrição realizado com sucesso")
                     $stepText.text("Agredecemos sua inscrição, entraremos em contato assim que possivel, nosso prazo de analálise é de cinco dias úteis")
                 }
+                 async function salvarNoTrello() {
+                        try {
+                            console.log("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                            const nome = $inputNome.val()
+                            const sobrenome = $inputsobrenome.val()
+                            const email = $inputemail.val()
+                            const miniBio = $inputBio.val()
+                            const data = $inputDataNasc.val()
+                            const complemento = $complemento.val()
+                            const cidade = $cidade.val()
+                            const endereco = $endereco.val()
+                            const cep = $cep.val()
+                            const pontosForte = $pontosForte.val()
+                            const habilidades = $habilidades.val()
 
+                            if(!nome || !sobrenome || !email || !data || !complemento || !cidade || !endereco || !cep || !pontosForte || !habilidades) {
+                                return alert("favor preencher todos os dados aleatórios ao prosseguir")
+                            }
+                            
+                            const body = {
+                                name: "Candidato = " + nome + " " + sobrenome,
+                                desc: `
+                                        Seguem dados do Candidato(a):
+
+                                        ---------------- Dados Pessoas----------------
+                                        Nome: ${nome}
+                                        Sobrenome: ${sobrenome}
+                                        Data de nascimento: ${data}
+                                        Minibio: ${miniBio}
+
+                                        ---------------- Dados de endereço----------------
+                                        Endereço: ${endereco}
+                                        Complemento: ${complemento}
+                                        Cidade: ${cidade}
+                                        Cep: ${cep}
+                                        ---------------- Dados do Canditado(a)----------------
+                                        Habildades: ${habilidades}
+                                        Ponstos fortes: ${pontosForte}
+                                   
+                                       
+                                `
+                            }
+                            await fetch("https://api.trello.com/1/cards/?idList=6546917754f6a85f5839bac3&key=e15907549de062419499efa42d971cff&token=ATTAd1e65dd97923fb46efe6a83a393b39c6bb873feec89e355b4baa73a494456505C02F53ED", {
+                                method: "POST",
+                                Headers: {"Content-Type": "application/json"},
+                                body: JSON.stringify(body)
+                            })
+                            console.log("¨44444444$$$$$$$$$$$$$$$$$")
+
+                            return finalizarFormulario
+                        } catch (e) {
+                            console.log("ocorreu erro ao salvar no Trello")
+                        }
+                 }
                 function validarForm3() {
                     if(validarHabilidades && validarPontosFortes) {
                         $containerBtnFormThree.removeClass("disabled")
                         $btnFormThree.removeClass("disabled")
-                        $btnFormThree.off("click").on("click", finalizarFormulario)
+                        $btnFormThree.off("click").on("click", salvarNoTrello)
                        
                     } else {
                         $containerBtnFormThree.addClass("disabled")
