@@ -174,7 +174,6 @@ function init() {
                 })
 
                 function finalizarFormulario() {
-                    console.log("11111111")
                     $stepThree.hide()
                     $stepDescription.hide()
                     $title.text("Inscrição realizado com sucesso")
@@ -182,7 +181,6 @@ function init() {
                 }
                  async function salvarNoTrello() {
                         try {
-                            console.log("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
 
                             const nome = $inputNome.val()
                             const sobrenome = $inputsobrenome.val()
@@ -195,7 +193,6 @@ function init() {
                             const cep = $cep.val()
                             const pontosForte = $pontosForte.val()
                             const habilidades = $habilidades.val()
-                            console.log(nome, sobrenome, email, miniBio, data)
                             if(!nome || !sobrenome || !email || !data || !complemento || !cidade || !endereco || !cep || !pontosForte || !habilidades) {
                                 return alert("favor preencher todos os dados aleatórios ao prosseguir")
                             }
@@ -228,7 +225,6 @@ function init() {
                                 headers: {"Content-Type": "application/json"},
                                 body: JSON.stringify(body)
                             })
-                            console.log("¨44444444$$$$$$$$$$$$$$$$$")
 
                              return finalizarFormulario();
                         } catch (e) {
