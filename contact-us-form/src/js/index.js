@@ -174,6 +174,7 @@ function init() {
                 })
 
                 function finalizarFormulario() {
+                    console.log("11111111")
                     $stepThree.hide()
                     $stepDescription.hide()
                     $title.text("Inscrição realizado com sucesso")
@@ -182,6 +183,7 @@ function init() {
                  async function salvarNoTrello() {
                         try {
                             console.log("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+
                             const nome = $inputNome.val()
                             const sobrenome = $inputsobrenome.val()
                             const email = $inputemail.val()
@@ -193,13 +195,13 @@ function init() {
                             const cep = $cep.val()
                             const pontosForte = $pontosForte.val()
                             const habilidades = $habilidades.val()
-
+                            console.log(nome, sobrenome, email, miniBio, data)
                             if(!nome || !sobrenome || !email || !data || !complemento || !cidade || !endereco || !cep || !pontosForte || !habilidades) {
                                 return alert("favor preencher todos os dados aleatórios ao prosseguir")
                             }
                             
                             const body = {
-                                name: "Candidato = " + nome + " " + sobrenome,
+                                name: "Candidato - " + nome + " " + sobrenome,
                                 desc: `
                                         Seguem dados do Candidato(a):
 
@@ -223,12 +225,12 @@ function init() {
                             }
                             await fetch("https://api.trello.com/1/cards/?idList=6546917754f6a85f5839bac3&key=e15907549de062419499efa42d971cff&token=ATTAd1e65dd97923fb46efe6a83a393b39c6bb873feec89e355b4baa73a494456505C02F53ED", {
                                 method: "POST",
-                                Headers: {"Content-Type": "application/json"},
+                                headers: {"Content-Type": "application/json"},
                                 body: JSON.stringify(body)
                             })
                             console.log("¨44444444$$$$$$$$$$$$$$$$$")
 
-                            return finalizarFormulario
+                             return finalizarFormulario();
                         } catch (e) {
                             console.log("ocorreu erro ao salvar no Trello")
                         }
